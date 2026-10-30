@@ -3,6 +3,7 @@ import {
   Bus,
   CarTaxiFront,
   Coffee,
+  Footprints,
   Landmark,
   MapPin,
   Palette,
@@ -37,6 +38,7 @@ export const TRANSPORT_META: Record<TransportType, Meta> = {
   BUS: { color: 'var(--line-transport)', icon: Bus },
   METRO: { color: 'var(--line-transport)', icon: TrainFrontTunnel },
   TAXI: { color: 'var(--line-transport)', icon: CarTaxiFront },
+  WALK: { color: 'var(--line-walk)', icon: Footprints },
 }
 
 export const ACTIVITY_META: Record<ActivityCategory, Meta> = {

@@ -69,7 +69,8 @@
     "outside": "Hors des dates du voyage",
     "emptyTitle": "Rien de prévu pour l’instant",
     "emptyText": "Ajoute une activité, un repas ou une pause pour remplir cette journée.",
-    "emptyShort": "Rien de prévu"
+    "emptyShort": "Rien de prévu",
+    "walkDuration": "{{minutes}} min à pied"
   },
   "event": {
     "newTitle": "Nouvel élément du planning",
@@ -110,7 +111,8 @@
     "TRAIN": "Train",
     "BUS": "Bus",
     "METRO": "Métro",
-    "TAXI": "Taxi"
+    "TAXI": "Taxi",
+    "WALK": "À pied"
   },
   "activities": {
     "title": "Activités",
@@ -159,7 +161,8 @@
     "add": "Ajouter un trajet",
     "emptyTitle": "Aucun trajet pour l’instant",
     "emptyText": "Ajoute les vols, trains et transferts pour les voir dans le planning.",
-    "seatsShort": "places {{seats}}"
+    "seatsShort": "places {{seats}}",
+    "showWalks": "Afficher les trajets à pied ({{count}})"
   },
   "transport": {
     "newTitle": "Nouveau trajet",

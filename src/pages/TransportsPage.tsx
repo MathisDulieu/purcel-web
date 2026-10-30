@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
-import { ChevronRight, Plus, Route } from 'lucide-react'
+import { ChevronRight, Footprints, Plus, Route } from 'lucide-react'
+import clsx from 'clsx'
 import { TRANSPORT_META } from '@/lib/categories'
 import { useSync } from '@/lib/data'
 import { capitalize, dateOf, formatDate, timeOf } from '@/lib/format'
@@ -17,15 +18,18 @@ export function TransportsPage() {
   const { data, isPending } = useSync()
   const online = useOnline()
   const [creating, setCreating] = useState(false)
+  const [showWalks, setShowWalks] = useState(false)
+  const walkCount = (data?.transports ?? []).filter((transport) => transport.type === 'WALK').length
 
   const groups = useMemo(() => {
     const map = new Map<string, Transport[]>()
     for (const transport of data?.transports ?? []) {
+      if (!showWalks && transport.type === 'WALK') continue
       const day = dateOf(transport.departureAt)
       map.set(day, [...(map.get(day) ?? []), transport])
     }
     return [...map.entries()].sort(([a], [b]) => a.localeCompare(b))
-  }, [data])
+  }, [data, showWalks])
 
   return (
     <Page>
@@ -42,7 +46,23 @@ export function TransportsPage() {
         <div className="grid min-h-[40dvh] place-items-center">
           <Spinner />
         </div>
-      ) : groups.length === 0 ? (
+      ) : (
+        <>
+          {walkCount > 0 ? (
+            <button
+              type="button"
+              aria-pressed={showWalks}
+              onClick={() => setShowWalks((value) => !value)}
+              className={clsx(
+                'mb-6 inline-flex h-9 items-center gap-2 rounded-full border-[1.5px] px-3.5 text-sm font-semibold transition-colors',
+                showWalks ? 'border-transparent bg-ink text-bg' : 'border-line text-ink-soft hover:text-ink',
+              )}
+            >
+              <Footprints className="size-4" />
+              {t('transports.showWalks', { count: walkCount })}
+            </button>
+          ) : null}
+          {groups.length === 0 ? (
         <EmptyState
           icon={Route}
           title={t('transports.emptyTitle')}
@@ -99,6 +119,8 @@ export function TransportsPage() {
             </section>
           ))}
         </div>
+          )}
+        </>
       )}
       <TransportFormSheet open={creating} transport={null} defaultDate={data?.trip.startDate} onClose={() => setCreating(false)} />
     </Page>

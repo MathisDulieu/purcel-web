@@ -69,7 +69,8 @@
     "outside": "În afara datelor călătoriei",
     "emptyTitle": "Nimic planificat încă",
     "emptyText": "Adaugă o activitate, o masă sau o pauză pentru această zi.",
-    "emptyShort": "Nimic planificat"
+    "emptyShort": "Nimic planificat",
+    "walkDuration": "{{minutes}} min pe jos"
   },
   "event": {
     "newTitle": "Element nou în program",
@@ -110,7 +111,8 @@
     "TRAIN": "Tren",
     "BUS": "Autobuz",
     "METRO": "Metrou",
-    "TAXI": "Taxi"
+    "TAXI": "Taxi",
+    "WALK": "Pe jos"
   },
   "activities": {
     "title": "Activități",
@@ -159,7 +161,8 @@
     "add": "Adaugă o călătorie",
     "emptyTitle": "Nicio călătorie încă",
     "emptyText": "Adaugă zboruri, trenuri și transferuri pentru a le vedea în program.",
-    "seatsShort": "locuri {{seats}}"
+    "seatsShort": "locuri {{seats}}",
+    "showWalks": "Arată traseele pe jos ({{count}})"
   },
   "transport": {
     "newTitle": "Călătorie nouă",

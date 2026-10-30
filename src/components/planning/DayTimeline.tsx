@@ -62,6 +62,32 @@ function TransportCard({ item }: { item: PlanningItem }) {
   )
 }
 
+function minutesBetween(item: PlanningItem) {
+  const transport = item.transport
+  if (!transport?.arrivalAt) return null
+  const minutes = Math.round((new Date(transport.arrivalAt).getTime() - new Date(transport.departureAt).getTime()) / 60000)
+  return minutes > 0 ? minutes : null
+}
+
+function WalkLeg({ item }: { item: PlanningItem }) {
+  const { t } = useTranslation()
+  const transport = item.transport!
+  const minutes = minutesBetween(item)
+  const Icon = itemMeta('TRANSPORT', 'WALK').icon
+  return (
+    <Link
+      to={`/transports/${item.id}`}
+      className="group flex items-center gap-2.5 rounded-full border-[1.5px] border-dashed border-line px-3.5 py-2 text-sm text-ink-soft transition-colors hover:border-ink-faint hover:text-ink"
+    >
+      <Icon className="size-4 shrink-0" strokeWidth={2.2} />
+      <span className="min-w-0 flex-1 truncate font-semibold text-ink">
+        {transport.departureLocation} → {transport.arrivalLocation}
+      </span>
+      {minutes ? <span className="shrink-0 tabular">{t('planning.walkDuration', { minutes })}</span> : null}
+    </Link>
+  )
+}
+
 function EventCard({ item, onOpen }: { item: PlanningItem; onOpen: () => void }) {
   const { t } = useTranslation()
   const meta = itemMeta('EVENT', item.category)
@@ -109,37 +135,46 @@ export function DayTimeline({ items, onOpenEvent }: DayTimelineProps) {
       {items.map((item, index) => {
         const meta = itemMeta(item.kind, item.category)
         const transport = item.kind === 'TRANSPORT'
+        const walk = transport && item.category === 'WALK'
         const last = index === items.length - 1
+        const delay = Math.min(index, 8) * 0.07
         return (
           <motion.li
             key={item.id}
             className="grid grid-cols-[3.9rem_2.25rem_minmax(0,1fr)] gap-x-1 sm:grid-cols-[4.75rem_3rem_minmax(0,1fr)]"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.12 + index * 0.08, type: 'spring', stiffness: 300, damping: 28 }}
+            transition={{ delay: 0.12 + delay, type: 'spring', stiffness: 300, damping: 28 }}
           >
-            <div className="pt-2.5 text-right">
-              <TimeLabel item={item} />
+            <div className={clsx('text-right', walk ? 'pt-2' : 'pt-2.5')}>
+              {walk ? <span className="text-sm font-semibold text-ink-soft tabular">{formatTime(item.startTime)}</span> : <TimeLabel item={item} />}
             </div>
             <div className="relative flex justify-center">
               <motion.span
-                className={clsx('absolute top-0 w-[6px] origin-top', last ? 'h-6' : 'bottom-0', transport ? 'rounded-none' : '')}
-                style={{ backgroundColor: meta.color }}
+                className={clsx('absolute top-0 w-[6px] origin-top', last ? 'h-6' : 'bottom-0')}
+                style={
+                  walk
+                    ? { backgroundImage: `repeating-linear-gradient(to bottom, ${meta.color} 0 6px, transparent 6px 11px)` }
+                    : { backgroundColor: meta.color }
+                }
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
-                transition={{ delay: 0.1 + index * 0.08, duration: 0.45, ease: [0.65, 0, 0.35, 1] }}
+                transition={{ delay: 0.1 + delay, duration: 0.45, ease: [0.65, 0, 0.35, 1] }}
                 aria-hidden="true"
               />
               <motion.span
-                className={clsx('relative z-10 mt-4 rounded-full border-[4px] border-ink bg-surface', transport ? 'size-6 bg-saffron' : 'size-5')}
+                className={clsx(
+                  'relative z-10 rounded-full border-ink bg-surface',
+                  walk ? 'mt-3.5 size-3.5 border-[3px]' : transport ? 'mt-4 size-6 border-[4px] bg-saffron' : 'mt-4 size-5 border-[4px]',
+                )}
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: 0.25 + index * 0.08, type: 'spring', stiffness: 520, damping: 18 }}
+                transition={{ delay: 0.25 + delay, type: 'spring', stiffness: 520, damping: 18 }}
                 aria-hidden="true"
               />
             </div>
-            <div className={clsx('min-w-0', last ? 'pb-2' : 'pb-4')}>
-              {transport ? <TransportCard item={item} /> : <EventCard item={item} onOpen={() => onOpenEvent(item)} />}
+            <div className={clsx('min-w-0', last ? 'pb-2' : walk ? 'pb-3' : 'pb-4')}>
+              {walk ? <WalkLeg item={item} /> : transport ? <TransportCard item={item} /> : <EventCard item={item} onOpen={() => onOpenEvent(item)} />}
             </div>
           </motion.li>
         )

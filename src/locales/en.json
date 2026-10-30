@@ -69,7 +69,8 @@
     "outside": "Outside the trip dates",
     "emptyTitle": "Nothing planned yet",
     "emptyText": "Add an activity, a meal or a break to fill this day.",
-    "emptyShort": "Nothing planned"
+    "emptyShort": "Nothing planned",
+    "walkDuration": "{{minutes}} min walk"
   },
   "event": {
     "newTitle": "New planning entry",
@@ -110,7 +111,8 @@
     "TRAIN": "Train",
     "BUS": "Bus",
     "METRO": "Metro",
-    "TAXI": "Taxi"
+    "TAXI": "Taxi",
+    "WALK": "On foot"
   },
   "activities": {
     "title": "Activities",
@@ -156,7 +158,8 @@
     "add": "Add a journey",
     "emptyTitle": "No journeys yet",
     "emptyText": "Add flights, trains and transfers to see them in the planning.",
-    "seatsShort": "seats {{seats}}"
+    "seatsShort": "seats {{seats}}",
+    "showWalks": "Show walks ({{count}})"
   },
   "transport": {
     "newTitle": "New journey",

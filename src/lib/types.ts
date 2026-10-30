@@ -2,13 +2,13 @@ export type Language = 'en' | 'fr' | 'ro'
 export type Role = 'ADMIN' | 'MEMBER'
 export type EventCategory = 'ACTIVITY' | 'MEAL' | 'ACCOMMODATION' | 'FREE_TIME' | 'OTHER'
 export type ActivityCategory = 'SIGHTSEEING' | 'CULTURE' | 'FOOD' | 'NIGHTLIFE' | 'NATURE' | 'SHOPPING' | 'OTHER'
-export type TransportType = 'PLANE' | 'TRAIN' | 'BUS' | 'METRO' | 'TAXI'
+export type TransportType = 'PLANE' | 'TRAIN' | 'BUS' | 'METRO' | 'TAXI' | 'WALK'
 export type EntityType = 'TRIP' | 'PLANNING_EVENT' | 'ACTIVITY' | 'TRANSPORT' | 'FOLDER' | 'DOCUMENT'
 export type ChangeAction = 'CREATE' | 'UPDATE' | 'DELETE' | 'REVERT'
 
 export const EVENT_CATEGORIES: EventCategory[] = ['ACTIVITY', 'MEAL', 'ACCOMMODATION', 'FREE_TIME', 'OTHER']
 export const ACTIVITY_CATEGORIES: ActivityCategory[] = ['SIGHTSEEING', 'CULTURE', 'FOOD', 'NIGHTLIFE', 'NATURE', 'SHOPPING', 'OTHER']
-export const TRANSPORT_TYPES: TransportType[] = ['PLANE', 'TRAIN', 'BUS', 'METRO', 'TAXI']
+export const TRANSPORT_TYPES: TransportType[] = ['PLANE', 'TRAIN', 'BUS', 'METRO', 'TAXI', 'WALK']
 
 export interface Audit {
   version: number
