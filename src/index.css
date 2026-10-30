@@ -1,0 +1,206 @@
+@import "tailwindcss";
+@import "@fontsource-variable/big-shoulders-display";
+@import "@fontsource-variable/onest";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --bg: #eef1f7;
+  --surface: #ffffff;
+  --surface-2: #e3e8f2;
+  --surface-3: #d6ddeb;
+  --ink: #121a33;
+  --ink-soft: #56607a;
+  --ink-faint: #8c94ab;
+  --line: #d3dae8;
+  --cobalt: #2443c6;
+  --cobalt-soft: #dfe5fb;
+  --on-cobalt: #ffffff;
+  --saffron: #f0b30a;
+  --saffron-soft: #fdf1cc;
+  --poppy: #d9364a;
+  --poppy-soft: #fbe1e4;
+  --pine: #13805e;
+  --pine-soft: #d7efe6;
+  --pig: #f5a9bc;
+  --shadow: 0 1px 0 rgb(18 26 51 / 0.04), 0 12px 32px -18px rgb(18 26 51 / 0.35);
+  --line-activity: #2443c6;
+  --line-meal: #e8731f;
+  --line-accommodation: #7a4fd0;
+  --line-free: #13a06e;
+  --line-other: #6b7590;
+  --line-transport: #f0b30a;
+  --line-sightseeing: #2443c6;
+  --line-culture: #7a4fd0;
+  --line-food: #e8731f;
+  --line-nightlife: #d9364a;
+  --line-nature: #13a06e;
+  --line-shopping: #d9468f;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0a1022;
+  --surface: #121a33;
+  --surface-2: #1a2445;
+  --surface-3: #243058;
+  --ink: #e8ecf6;
+  --ink-soft: #a0a9c2;
+  --ink-faint: #6c7594;
+  --line: #26315a;
+  --cobalt: #7b8fff;
+  --cobalt-soft: #1f2b5c;
+  --on-cobalt: #0a1022;
+  --saffron: #f5c030;
+  --saffron-soft: #3a3016;
+  --poppy: #ff6577;
+  --poppy-soft: #43202a;
+  --pine: #3cc495;
+  --pine-soft: #143a31;
+  --shadow: 0 1px 0 rgb(0 0 0 / 0.2), 0 18px 40px -20px rgb(0 0 0 / 0.8);
+  --line-activity: #7b8fff;
+  --line-meal: #ff9a4d;
+  --line-accommodation: #a985ff;
+  --line-free: #3cc495;
+  --line-other: #9aa3bd;
+  --line-transport: #f5c030;
+  --line-sightseeing: #7b8fff;
+  --line-culture: #a985ff;
+  --line-food: #ff9a4d;
+  --line-nightlife: #ff6577;
+  --line-nature: #3cc495;
+  --line-shopping: #ff7ab8;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-display: "Big Shoulders Display Variable", "Arial Narrow", sans-serif;
+  --font-sans: "Onest Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-soft: var(--cobalt-soft);
+  --color-on-cobalt: var(--on-cobalt);
+  --color-saffron: var(--saffron);
+  --color-saffron-soft: var(--saffron-soft);
+  --color-poppy: var(--poppy);
+  --color-poppy-soft: var(--poppy-soft);
+  --color-pine: var(--pine);
+  --color-pine-soft: var(--pine-soft);
+  --color-pig: var(--pig);
+  --shadow-card: var(--shadow);
+  --ease-spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: var(--saffron);
+    color: #121a33;
+  }
+
+  :focus-visible {
+    outline: 2.5px solid var(--cobalt);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer components {
+  .field {
+    width: 100%;
+    border-radius: 0.875rem;
+    border: 1.5px solid var(--line);
+    background: var(--surface);
+    padding: 0.7rem 0.9rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--cobalt);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--cobalt) 18%, transparent);
+  }
+
+  .field::placeholder {
+    color: var(--ink-faint);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.react-pdf__Page__canvas {
+  margin: 0 auto;
+  height: auto !important;
+  max-width: 100%;
+}
+
+.react-pdf__Page__textContent,
+.react-pdf__Page__annotations {
+  display: none;
+}
